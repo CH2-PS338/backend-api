@@ -8,6 +8,8 @@ export const getNutrisions = async (req, res) => {
             }
         );
         res.json({
+            error: false,
+            message: 'Nutrisions fetched successfully',
             data: nutrisions
         });
     } catch (error) {
@@ -23,7 +25,11 @@ export const addNutrisions = async (req, res) => {
             name: name,
             description: description
         })
-        res.json({ msg: 'Nutrisions created successfully', data: createdNutrisions });
+        res.json({
+            error: false,
+            message: 'Nutrisions created successfully',
+            data: createdNutrisions
+        });
     } catch (error) {
         console.log(error);
     }

@@ -22,7 +22,7 @@ export const uploadImage = async (req, res) => {
     try {
         if (req.file) {
             // Generate a unique filename for the uploaded file
-            const uniqueFilename = `${Date.now()}`;
+            const uniqueFilename = `${Date.now()}.png`;
 
             console.log('file found trying to upload');
             const blob = bucket.file(uniqueFilename);
@@ -45,13 +45,18 @@ export const uploadImage = async (req, res) => {
                         }
                     );
                     res.status(200).send({
+                        error: false,
                         message: 'Image uploaded.',
-                        data: publicUrl,
+                        data: {
+                            userId: userId,
+                            profilePic: publicUrl,
+                        }
+
                     });
                 } catch (updateError) {
-                    console.error('Error updating profileImage:', updateError);
                     res.status(500).send({
-                        error: 'Internal Server Error',
+                        error: true,
+                        message: 'Internal Server Error',
                     });
                 }
             });
@@ -59,9 +64,9 @@ export const uploadImage = async (req, res) => {
             blobStream.end(req.file.buffer);
         }
     } catch (error) {
-        console.error('Error uploading image:', error);
         res.status(500).send({
-            error: 'Internal Server Error',
+            error: true,
+            message: 'Internal Server Error',
         });
     }
 };

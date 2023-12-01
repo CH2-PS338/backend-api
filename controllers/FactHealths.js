@@ -9,7 +9,8 @@ export const addFactHealths = async (req, res) => {
             source,
         });
         return res.json({
-            msg: "Fact added successfully",
+            error: false,
+            message: "Fact added successfully",
             data: newFact,
         });
     } catch (error) {
@@ -27,6 +28,8 @@ export const getRandomFact = async (req, res) => {
             }
         });
         return res.json({
+            error: false,
+            message: "Random fact fetched successfully",
             data: randomFact
         }
         );

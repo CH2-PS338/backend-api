@@ -23,9 +23,9 @@ router.delete('/logout', Logout);
 
 //upload image
 //bug image that has been uploaded not deleted after new update
-router.post('/upload/:id', verifyToken, multerImage.single('file'), uploadImage);
+router.post('/upload/:id', multerImage.single('file'), uploadImage);
 
-// Nutriosions
+// Nutrisions
 router.get('/nutrisions', getNutrisions);
 router.post('/nutrisions', addNutrisions);
 

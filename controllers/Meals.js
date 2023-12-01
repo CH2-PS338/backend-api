@@ -20,10 +20,11 @@ export const getMealsById = async (req, res) => {
         });
 
         return res.json({
+            error: false,
+            message: `Meals for userId ${userId}`,
             data: userMeals,
         });
     } catch (error) {
-        console.error('Error fetching user meals:', error);
         return res.status(500).json({
             error: 'Internal Server Error',
             message: error.message,
@@ -44,7 +45,8 @@ export const addMeal = async (req, res) => {
             calories: calories,
         });
         res.json({
-            msg: 'Meal added successfully by' + userId,
+            error: false,
+            message: 'Meal added successfully by' + userId,
             data: dataMealsCreate,
         });
     } catch (error) {
@@ -68,7 +70,8 @@ export const deleteMealsById = async (req, res) => {
 
         if (!mealToDelete) {
             return res.status(404).json({
-                error: 'Meal not found',
+                error: 'Not Found',
+                message: 'Meal not found',
             });
         }
 
@@ -80,15 +83,16 @@ export const deleteMealsById = async (req, res) => {
         });
 
         res.json({
-            msg: 'Meal deleted successfully',
+            message: 'Meal deleted successfully',
             data: {
-                meal: mealToDelete,
+                meal: dataMealsDelete,
             }
         });
     } catch (error) {
         console.error(error);
         res.status(500).json({
-            error: 'Internal Server Error',
+            error: true,
+            message: 'Internal Server Error',
         });
     }
 };

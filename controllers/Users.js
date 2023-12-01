@@ -26,8 +26,11 @@ export const getUserById = async (req, res) => {
             where: {
                 userId: id,
             },
+            attributes: ['userId', 'name', 'email', 'premium', 'profilePic', 'refreshToken', 'createdAt', 'updatedAt']
         });
         res.json({
+            error: false,
+            message: 'Success',
             data: userById
         });
     } catch (error) {
@@ -38,8 +41,19 @@ export const getUserById = async (req, res) => {
 
 export const Register = async (req, res) => {
     const { name, email, password, confirm_password } = req.body;
+
+
+    const existingEmail = await Users.findOne({ where: { email: email } });
+    if (existingEmail) {
+        return res.status(400).json({
+            error: true,
+            message: 'Email already exist'
+        });
+    }
+
     if (password !== confirm_password) {
         return res.status(400).json({
+            error: true,
             msg: 'Password do not match'
         });
     }
@@ -51,7 +65,14 @@ export const Register = async (req, res) => {
             email: email,
             password: hashedPassword,
         })
-        res.json({ msg: 'User created successfully' });
+        res.json({
+            error: false,
+            message: 'User created successfully',
+            data: {
+                name: name,
+                email: email,
+            }
+        });
     } catch (error) {
         console.log(error);
     }
@@ -62,7 +83,10 @@ export const Login = async (req, res) => {
         const user = await Users.findAll({ where: { email: req.body.email } });
         const match = await bcrypt.compare(req.body.password, user[0].password);
         if (!match) {
-            return res.status(400).json({ msg: 'Invalid credentials' });
+            return res.status(400).json({
+                error: true,
+                message: 'Invalid credentials'
+            });
         }
         const userId = user[0].userId;
         const name = user[0].name;
@@ -81,23 +105,35 @@ export const Login = async (req, res) => {
         });
         res.json({ accessToken: accessToken });
     } catch (error) {
-        res.status(400).json({ msg: 'Email is not found' });
+        res.status(400).json({
+            error: true,
+            message: 'Email is not found'
+        });
     }
 };
 
 export const Logout = async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) {
-        return res.status(204).json({ msg: 'User not authenticated!' });
+        return res.status(204).json({
+            error: true,
+            message: 'User not authenticated!'
+        });
     }
     const user = await Users.findAll({ where: { refreshToken: refreshToken } });
     if (!user) {
-        return res.status(204).json({ msg: 'User not authenticated!' });
+        return res.status(204).json({
+            error: true,
+            message: 'User not authenticated!'
+        });
     }
     const userId = user[0].userId;
     await Users.update({ refreshToken: null }, {
         where: { userId: userId }
     });
     res.clearCookie('refreshToken');
-    return res.status(200).json({ msg: 'Logout success!' });
+    return res.status(200).json({
+        error: false,
+        message: 'Logout success!'
+    });
 };

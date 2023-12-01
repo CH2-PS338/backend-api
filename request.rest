@@ -1,20 +1,16 @@
 GET http://localhost:5000
-```
-###
-GET http://localhost:5000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJKb2huIFNpbnMiLCJlbWFpbCI6ImpvaG5zaW5zQGdtYWlsLmNvbSIsImlhdCI6MTcwMDQyMDg4NywiZXhwIjoxNzAwNDIwOTE3fQ.N7zoLZDeGnS984VBggAMdWb_hbStyaptj_HE8c72Afk
 
 ###
 GET http://localhost:5000/users/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJKb2huIFNpbnMiLCJlbWFpbCI6ImpvaG5zaW5zQGdtYWlsLmNvbSIsImlhdCI6MTcwMDQyMDk2MiwiZXhwIjoxNzAwNDIwOTkyfQ.Yo-hkjcffYBnRihOJYw2jM0R2hPEC5Pz4j4OIht3GYY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJKb2huIEpheSIsImVtYWlsIjoiam9obmpheUBnbWFpbC5jb20iLCJpYXQiOjE3MDE0NDU5NTMsImV4cCI6MTcwMTQ0NTk4M30.z-IZGXwgzI7qipmljxPdSB6vYAZ9aX_xp-LujBoUTDM
 
 ###
 POST http://localhost:5000/register
 Content-Type: application/json
-
+    
 {
-    "name": "John Doe",
-    "email": "johndoe@gmail.com",
+    "name": "John awan",
+    "email": "johnawan@gmail.com",
     "password": "password",
     "confirm_password": "password"
 }
@@ -24,7 +20,7 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email": "johnsins@gmail.com",
+    "email": "johnjay@gmail.com",
     "password": "password"
 }
 
@@ -49,7 +45,7 @@ Content-Type: application/json
 
 ### Meals!
 GET http://localhost:5000/meals/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJKb2huIFNpbnMiLCJlbWFpbCI6ImpvaG5zaW5zQGdtYWlsLmNvbSIsImlhdCI6MTcwMDQyMTA0MywiZXhwIjoxNzAwNDIxMDczfQ.Wb0jnYwqpiq5yURtbmvRZbF771JEqlPy20CQ1Pz_SI0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJKb2huIFNpbnMiLCJlbWFpbCI6ImpvaG5zaW5zQGdtYWlsLmNvbSIsImlhdCI6MTcwMDQ5MTE0NywiZXhwIjoxNzAwNDkxMTc3fQ.8qWYoMii6jPPRdnRYX8lJVzGG9wF5zUW7k99CA_KSMI
 
 ###
 POST http://localhost:5000/addmeal/1
@@ -73,8 +69,6 @@ Content-Type: application/json
 GET http://localhost:5000/facthealths
 
 ###
-
-
 POST http://localhost:5000/facthealths
 Content-Type: application/json
 
