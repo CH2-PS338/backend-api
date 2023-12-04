@@ -22,7 +22,7 @@ router.post('/forgotpassword', forgotPassword);
 
 //upload image
 //bug image that has been uploaded not deleted after new update
-router.post('/upload/:id', multerImage.single('file'), uploadImage);
+router.post('/upload/:id', verifyToken, multerImage.single('file'), uploadImage);
 
 // Nutrisions
 router.get('/nutrisions', getNutrisions);
@@ -30,9 +30,9 @@ router.post('/nutrisions', addNutrisions);
 
 
 //meals
-router.get('/meals/:id', getMealsById);
-router.post('/addmeal/:id', addMeal);
-router.post('/deletemeal/:id', deleteMealsById);
+router.get('/meals/:id', verifyToken, getMealsById);
+router.post('/addmeal/:id', verifyToken, addMeal);
+router.post('/deletemeal/:id', verifyToken, deleteMealsById);
 router.get('/meals/calculate/:id', calculateMealsDay);
 
 //fact healths

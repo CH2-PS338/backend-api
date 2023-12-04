@@ -49,19 +49,10 @@ export const Register = async (req, res) => {
 }
 
 export const Login = async (req, res) => {
-    const { loginEmail, loginPassword } = req.body;
-
-
-    if (!loginEmail || !loginPassword) {
-        return res.status(400).json({
-            error: true,
-            message: 'Please fill all the fields'
-        });
-    }
 
     try {
-        const user = await Users.findAll({ where: { email: loginEmail } });
-        const match = await bcrypt.compare(loginPassword, user[0].password);
+        const user = await Users.findAll({ where: { email: req.body.email } });
+        const match = await bcrypt.compare(req.body.password, user[0].password);
 
         if (!match) {
             return res.status(400).json({
@@ -73,10 +64,10 @@ export const Login = async (req, res) => {
         const name = user[0].name;
         const email = user[0].email;
         const accessToken = Jwt.sign({ userId, name, email }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '1d'
+            expiresIn: '30s'
         });
         const refreshToken = Jwt.sign({ userId, name, email }, process.env.REFRESH_TOKEN_SECRET, {
-            expiresIn: '1d'
+            expiresIn: '1day'
         });
         await Users.update({ refreshToken: refreshToken }, { where: { userId: userId } });
         res.cookie('refreshToken', refreshToken, {
