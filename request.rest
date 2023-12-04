@@ -21,7 +21,7 @@ Content-Type: application/json
 
 {
     "email": "johnjay@gmail.com",
-    "password": "password"
+    "password": "0a289pfj"
 }
 
 ###
@@ -55,7 +55,11 @@ Content-Type: application/json
 
 {
     "meals_name" : "Mie Tek tek",
-    "calories": "222"
+    "calories": "222",
+    "proteins": "22",
+    "carbs": "22",
+    "fats": "22",
+    "minerals": "22"
 }
 
 ### delete meals
@@ -77,3 +81,13 @@ Content-Type: application/json
     "source": "https://www.heart.org/en/health-topics/consumer-healthcare/doctor-appointments-questions-to-ask-your-doctor"
 }
 
+###
+POST http://localhost:5000/forgotpassword
+Content-Type: application/json
+
+{
+    "email": "johnjay@gmail.com"
+}
+
+###
+GET http://localhost:5000/meals/calculate/1

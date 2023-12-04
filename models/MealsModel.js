@@ -16,6 +16,18 @@ const Meals = db.define('meals', {
     calories: {
         type: DataTypes.INTEGER,
     },
+    carbs: {
+        type: DataTypes.INTEGER,
+    },
+    proteins: {
+        type: DataTypes.INTEGER,
+    },
+    fats: {
+        type: DataTypes.INTEGER,
+    },
+    minerals: {
+        type: DataTypes.INTEGER,
+    },
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,

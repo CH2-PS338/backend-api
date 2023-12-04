@@ -1,5 +1,4 @@
 import Meals from '../models/MealsModel.js';
-import Users from '../models/UserModels.js';
 
 export const getMealsById = async (req, res) => {
     const { id: userId } = req.params;
@@ -36,18 +35,27 @@ export const getMealsById = async (req, res) => {
 
 export const addMeal = async (req, res) => {
     const { id: userId } = req.params;
-    const { meals_name, calories } = req.body;
+    const { meals_name, calories, carbs, proteins, fats, minerals } = req.body;
 
     try {
         const dataMealsCreate = await Meals.create({
             userId: userId,
             meals_name: meals_name,
             calories: calories,
+            carbs: carbs,
+            proteins: proteins,
+            fats: fats,
+            minerals: minerals,
         });
+        const { userId: excludedUserId, ...mealsData } = dataMealsCreate.dataValues;
+
         res.json({
             error: false,
             message: 'Meal added successfully by' + userId,
-            data: dataMealsCreate,
+            data: {
+                userId: userId,
+                meals: mealsData,
+            }
         });
     } catch (error) {
         console.error(error);
@@ -90,6 +98,55 @@ export const deleteMealsById = async (req, res) => {
         });
     } catch (error) {
         console.error(error);
+        res.status(500).json({
+            error: true,
+            message: 'Internal Server Error',
+        });
+    }
+};
+
+export const calculateMealsDay = async (req, res) => {
+    const { id: userId } = req.params;
+
+    const date = new Date();
+    const today = date.getDate();
+
+    try {
+        const getMealsDay = await Meals.findAll({
+            where: {
+                userId: userId,
+            },
+        });
+
+        const getMealsThisDay = getMealsDay.filter((meal) => {
+            const mealDate = new Date(meal.createdAt).getDate();
+            return mealDate === today;
+        });
+
+        const calculate = getMealsThisDay.reduce((acc, curr) => {
+            return {
+                calories: acc.calories + curr.calories,
+                carbs: acc.carbs + curr.carbs,
+                proteins: acc.proteins + curr.proteins,
+                fats: acc.fats + curr.fats,
+                minerals: acc.minerals + curr.minerals,
+            };
+        }, {
+            calories: 0,
+            carbs: 0,
+            proteins: 0,
+            fats: 0,
+            minerals: 0,
+        });
+
+        res.json({
+            error: false,
+            message: 'Meals for userId ' + userId,
+            data: {
+                getMealsByday: calculate,
+            }
+        });
+    } catch (error) {
         res.status(500).json({
             error: true,
             message: 'Internal Server Error',

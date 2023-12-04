@@ -1,7 +1,7 @@
 import express from "express";
-import { getUserById, getUsers, Login, Logout, Register } from "../controllers/Users.js";
+import { Login, Logout, Register, forgotPassword } from "../controllers/Users.js";
 import { getNutrisions, addNutrisions } from "../controllers/Nutrisions.js";
-import { getMealsById, addMeal, deleteMealsById } from "../controllers/Meals.js";
+import { getMealsById, addMeal, deleteMealsById, calculateMealsDay } from "../controllers/Meals.js";
 import { getRandomFact, addFactHealths } from "../controllers/FactHealths.js";
 import { verifyToken } from "../middleware/VerifyToken.js";
 import { refreshToken } from "../controllers/RefreshToken.js";
@@ -13,13 +13,12 @@ router.get('/', (req, res) => {
     res.send('Hello world');
 });
 
-router.get('/users', verifyToken, getUsers);
-// Sebernarnya ini gaperlu wkwkwkwk
-router.get('/users/:id', verifyToken, getUserById);
+
 router.post('/register', Register);
 router.post('/login', Login);
 router.get('/token', refreshToken);
 router.delete('/logout', Logout);
+router.post('/forgotpassword', forgotPassword);
 
 //upload image
 //bug image that has been uploaded not deleted after new update
@@ -34,6 +33,7 @@ router.post('/nutrisions', addNutrisions);
 router.get('/meals/:id', getMealsById);
 router.post('/addmeal/:id', addMeal);
 router.post('/deletemeal/:id', deleteMealsById);
+router.get('/meals/calculate/:id', calculateMealsDay);
 
 //fact healths
 router.get('/facthealths', getRandomFact);

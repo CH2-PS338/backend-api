@@ -2,43 +2,6 @@ import Users from "../models/UserModels.js";
 import bcrypt from "bcrypt";
 import Jwt from "jsonwebtoken";
 
-export const getUsers = async (req, res) => {
-    try {
-        const users = await Users.findAll(
-            {
-                attributes: ['userId', 'name', 'email', 'premium']
-            }
-        );
-        res.json({
-            data: users
-        });
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-// Sebernarnya ini gaperlu wkwkwkwk
-export const getUserById = async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const userById = await Users.findAll({
-            where: {
-                userId: id,
-            },
-            attributes: ['userId', 'name', 'email', 'premium', 'profilePic', 'refreshToken', 'createdAt', 'updatedAt']
-        });
-        res.json({
-            error: false,
-            message: 'Success',
-            data: userById
-        });
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-
 export const Register = async (req, res) => {
     const { name, email, password, confirm_password } = req.body;
 
@@ -55,6 +18,13 @@ export const Register = async (req, res) => {
         return res.status(400).json({
             error: true,
             msg: 'Password do not match'
+        });
+    }
+
+    if (!name || !email || !password || !confirm_password) {
+        return res.status(400).json({
+            error: true,
+            msg: 'Please fill all the fields'
         });
     }
     const salt = await bcrypt.genSalt();
@@ -79,9 +49,20 @@ export const Register = async (req, res) => {
 }
 
 export const Login = async (req, res) => {
+    const { loginEmail, loginPassword } = req.body;
+
+
+    if (!loginEmail || !loginPassword) {
+        return res.status(400).json({
+            error: true,
+            message: 'Please fill all the fields'
+        });
+    }
+
     try {
-        const user = await Users.findAll({ where: { email: req.body.email } });
-        const match = await bcrypt.compare(req.body.password, user[0].password);
+        const user = await Users.findAll({ where: { email: loginEmail } });
+        const match = await bcrypt.compare(loginPassword, user[0].password);
+
         if (!match) {
             return res.status(400).json({
                 error: true,
@@ -92,7 +73,7 @@ export const Login = async (req, res) => {
         const name = user[0].name;
         const email = user[0].email;
         const accessToken = Jwt.sign({ userId, name, email }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '30s'
+            expiresIn: '1d'
         });
         const refreshToken = Jwt.sign({ userId, name, email }, process.env.REFRESH_TOKEN_SECRET, {
             expiresIn: '1d'
@@ -136,4 +117,42 @@ export const Logout = async (req, res) => {
         error: false,
         message: 'Logout success!'
     });
+};
+
+
+export const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+
+    const existingEmail = await Users.findOne({ where: { email: email } });
+
+    if (!existingEmail) {
+        return res.status(400).json({
+            error: true,
+            message: 'Email not found'
+        });
+    }
+
+    try {
+        const password = Math.random().toString(36).slice(-8);
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        await Users.update({ password: hashedPassword }, { where: { email: email } });
+
+        return res.json({
+            error: false,
+            message: 'Password has been reset',
+            data: {
+                email: email,
+                password: password
+            }
+        });
+    } catch (error) {
+        return res.status(400).json({
+            error: true,
+            message: 'Something went wrong'
+        });
+    }
+
+
 };

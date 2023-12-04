@@ -21,7 +21,13 @@ const bucket = storage.bucket("profile-image-user-trackmeals");
 export const uploadImage = async (req, res) => {
     try {
         if (req.file) {
-            // Generate a unique filename for the uploaded file
+
+            if (!req.file) {
+                return res.status(400).json({
+                    error: true,
+                    message: "Please provide all the required details",
+                });
+            }
             const uniqueFilename = `${Date.now()}.png`;
 
             console.log('file found trying to upload');
