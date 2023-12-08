@@ -15,7 +15,7 @@ export const getMealsById = async (req, res) => {
             where: {
                 userId: userId,
             },
-            attributes: ['mealId', 'meals_name', 'calories'],
+            attributes: ['mealId', 'meals_name'],
         });
 
         return res.json({
@@ -73,7 +73,6 @@ export const deleteMealsById = async (req, res) => {
                 userId: userId,
                 mealId: mealId,
             },
-            attributes: ['mealId', 'meals_name', 'calories'],
         });
 
         if (!mealToDelete) {
@@ -93,7 +92,7 @@ export const deleteMealsById = async (req, res) => {
         res.json({
             message: 'Meal deleted successfully',
             data: {
-                meal: dataMealsDelete,
+                meal: mealToDelete,
             }
         });
     } catch (error) {
@@ -105,7 +104,7 @@ export const deleteMealsById = async (req, res) => {
     }
 };
 
-export const calculateMealsDay = async (req, res) => {
+export const dashboardAPi = async (req, res) => {
     const { id: userId } = req.params;
 
     const date = new Date();
@@ -143,7 +142,7 @@ export const calculateMealsDay = async (req, res) => {
             error: false,
             message: 'Meals for userId ' + userId,
             data: {
-                getMealsByday: calculate,
+                NutrisionForToday: calculate,
             }
         });
     } catch (error) {

@@ -5,8 +5,8 @@ POST http://localhost:5000/register
 Content-Type: application/json
     
 {
-    "name": "John awan",
-    "email": "johnawan@gmail.com",
+    "name": "John rocker",
+    "email": "johnrocker@gmail.com",
     "password": "password",
     "confirm_password": "password"
 }
@@ -16,7 +16,7 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email": "johndose@gmail.com",
+    "email": "johnrocker@gmail.com",
     "password": "password"
 }
 
@@ -39,13 +39,10 @@ Content-Type: application/json
     "description" : "Mango is rich in vitamins, minerals, and antioxidants, and it has been associated with many health benefits, including potential anticancer effects, as well as improved immunity and digestive and eye health"
 }
 
-### Meals!
-GET http://localhost:5000/meals/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJKb2huIFNpbnMiLCJlbWFpbCI6ImpvaG5zaW5zQGdtYWlsLmNvbSIsImlhdCI6MTcwMDQ5MTE0NywiZXhwIjoxNzAwNDkxMTc3fQ.8qWYoMii6jPPRdnRYX8lJVzGG9wF5zUW7k99CA_KSMI
 
 ###
 POST http://localhost:5000/addmeal/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsIm5hbWUiOiJKb2huIGRvc2UiLCJlbWFpbCI6ImpvaG5kb3NlQGdtYWlsLmNvbSIsImlhdCI6MTcwMTcxNjAyMCwiZXhwIjoxNzAxODAyNDIwfQ.VJA8fcffDwxqVI2WfDCjTk_2lcMpF2_O5fUZP3WVJdQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJKb2huIHRpdGl0IiwiZW1haWwiOiJqb2hudGl0aXRAZ21haWwuY29tIiwiaWF0IjoxNzAxOTExOTkwLCJleHAiOjE3MDE5OTgzOTB9.peg0qAZ7umjQ3m_uoyrDn29m0qZfdI_YwFpKZ_6MOHQ
 Content-Type: application/json
 
 
@@ -60,10 +57,11 @@ Content-Type: application/json
 
 ### delete meals
 POST http://localhost:5000/deletemeal/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJKb2huIHRpdGl0IiwiZW1haWwiOiJqb2hudGl0aXRAZ21haWwuY29tIiwiaWF0IjoxNzAxOTExOTkwLCJleHAiOjE3MDE5OTgzOTB9.peg0qAZ7umjQ3m_uoyrDn29m0qZfdI_YwFpKZ_6MOHQ
 Content-Type: application/json
 
 {
-    "mealId" : "6"
+    "mealId" : 2
 }
 ### Random Facts!
 GET http://localhost:5000/facthealths
@@ -86,4 +84,22 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/meals/calculate/1
+GET http://localhost:5000/dashboard/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsIm5hbWUiOiJKb2huIHJvY2tlciIsImVtYWlsIjoiam9obnJvY2tlckBnbWFpbC5jb20iLCJpYXQiOjE3MDIwMjI5MjcsImV4cCI6MTcwMjEwOTMyN30.u3BGoASj8kB1LG1y4I71JXWK259z0nYAc9haRy1phKc
+
+
+### Meals!
+GET http://localhost:5000/meals/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJKb2huIHRpdGl0IiwiZW1haWwiOiJqb2hudGl0aXRAZ21haWwuY29tIiwiaWF0IjoxNzAxOTExOTkwLCJleHAiOjE3MDE5OTgzOTB9.peg0qAZ7umjQ3m_uoyrDn29m0qZfdI_YwFpKZ_6MOHQ
+
+
+### Change Password
+POST http://localhost:5000/changepassword/2
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJKb2huIHRpdGl0IiwiZW1haWwiOiJqb2hudGl0aXRAZ21haWwuY29tIiwiaWF0IjoxNzAxOTExOTkwLCJleHAiOjE3MDE5OTgzOTB9.peg0qAZ7umjQ3m_uoyrDn29m0qZfdI_YwFpKZ_6MOHQ
+
+{
+    "oldPassword": "password",
+    "newPassword": "password1",
+    "confirmNewPassword": "password1"
+}

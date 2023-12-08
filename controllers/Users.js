@@ -75,7 +75,10 @@ export const Login = async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000 // 1 day
             // secure: true //jika mau pakek https
         });
-        res.json({ accessToken: accessToken });
+        res.json({
+            error: false,
+            accessToken: accessToken
+        });
     } catch (error) {
         res.status(400).json({
             error: true,
@@ -146,4 +149,56 @@ export const forgotPassword = async (req, res) => {
     }
 
 
+};
+
+
+export const changePassword = async (req, res) => {
+    const { id: userId } = req.params;
+    const { oldPassword, newPassword, confirmNewPassword } = req.body;
+
+    if (!userId || !oldPassword || !newPassword || !confirmNewPassword) {
+        return res.status(400).json({
+            error: true,
+            message: 'Please fill all the fields'
+        });
+    }
+
+    const existingUser = await Users.findOne({ where: { userId: userId } });
+
+    const match = await bcrypt.compare(oldPassword, existingUser.password);
+
+    if (!match) {
+        return res.status(400).json({
+            error: true,
+            message: 'Invalid credentials'
+        });
+    }
+
+    if (newPassword !== confirmNewPassword) {
+        return res.status(400).json({
+            error: true,
+            message: 'Password do not match'
+        });
+    }
+
+    try {
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+        await Users.update({ password: hashedPassword }, { where: { userId: userId } });
+
+        return res.json({
+            error: false,
+            message: 'Password has been changed',
+            data: {
+                userId: userId,
+            }
+        });
+
+    } catch (error) {
+        return res.status(400).json({
+            error: true,
+            message: 'Something went wrong'
+        });
+    }
 };
