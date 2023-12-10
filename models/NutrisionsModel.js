@@ -5,15 +5,26 @@ const { DataTypes } = Sequelize;
 
 const Nutrisions = db.define('nutrisions', {
     nutrisionId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         primaryKey: true,
-        autoIncrement: true,
     },
     name: {
         type: DataTypes.STRING,
     },
-    description: {
-        type: DataTypes.TEXT,
+    calories: {
+        type: DataTypes.INTEGER,
+    },
+    carbs: {
+        type: DataTypes.INTEGER,
+    },
+    proteins: {
+        type: DataTypes.INTEGER,
+    },
+    fats: {
+        type: DataTypes.INTEGER,
+    },
+    minerals: {
+        type: DataTypes.INTEGER,
     },
 }, {
     freezeTableName: true,

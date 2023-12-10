@@ -12,6 +12,18 @@ const Users = db.define('users', {
     name: {
         type: DataTypes.STRING,
     },
+    age: {
+        type: DataTypes.INTEGER,
+    },
+    gender: {
+        type: DataTypes.STRING(1),
+        validate: {
+            isIn: {
+                args: [['P', 'L']],
+                msg: "Gender must be 'P' or 'L'",
+            },
+        }
+    },
     email: {
         type: DataTypes.STRING,
         unique: true,
@@ -32,6 +44,5 @@ const Users = db.define('users', {
 }, {
     freezeTableName: true,
 });
-
 
 export default Users;

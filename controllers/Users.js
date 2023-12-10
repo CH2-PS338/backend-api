@@ -152,6 +152,40 @@ export const forgotPassword = async (req, res) => {
 };
 
 
+export const updateProfile = async (req, res) => {
+    const { name, age, gender } = req.body;
+    const { id: userId } = req.params;
+
+    try {
+        const updateProfile = Users.update({
+            name: name,
+            age: age,
+            gender: gender,
+        },
+            {
+                where: { userId: userId }
+            }
+        )
+
+        return res.json({
+            error: false,
+            message: 'Profile has been updated',
+            data: {
+                name: name,
+                age: age,
+                gender: gender
+            }
+        });
+
+    } catch (error) {
+        res.status(400).json({
+            error: true,
+            message: 'Something went wrong'
+        });
+    }
+
+}
+
 export const changePassword = async (req, res) => {
     const { id: userId } = req.params;
     const { oldPassword, newPassword, confirmNewPassword } = req.body;

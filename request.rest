@@ -35,25 +35,26 @@ POST http://localhost:5000/nutrisions
 Content-Type: application/json
 
 {
-    "name" : "Mango",
-    "description" : "Mango is rich in vitamins, minerals, and antioxidants, and it has been associated with many health benefits, including potential anticancer effects, as well as improved immunity and digestive and eye health"
+    "nutrisionId": "nasi_putih",
+    "name": "Nasi Putih",
+    "calories": "112",
+    "carbs": "222",
+    "proteins": "12",
+    "carbs": "511",
+    "fats": "23",
+    "minerals": "12"
 }
 
 
 ###
 POST http://localhost:5000/addmeal/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJKb2huIHRpdGl0IiwiZW1haWwiOiJqb2hudGl0aXRAZ21haWwuY29tIiwiaWF0IjoxNzAxOTExOTkwLCJleHAiOjE3MDE5OTgzOTB9.peg0qAZ7umjQ3m_uoyrDn29m0qZfdI_YwFpKZ_6MOHQ
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJKb2huIHRpdGl0IiwiZW1haWwiOiJqb2hudGl0aXRAZ21haWwuY29tIiwiaWF0IjoxNzAxOTExOTkwLCJleHAiOjE3MDE5OTgzOTB9.peg0qAZ7umjQ3m_uoyrDn29m0qZfdI_YwFpKZ_6MOHQ
 Content-Type: application/json
 
-
 {
-    "meals_name" : "Mie Tek tek",
-    "calories": "222",
-    "proteins": "22",
-    "carbs": "22",
-    "fats": "22",
-    "minerals": "22"
+    "meals_name": ["banana","nasi_putih"]
 }
+
 
 ### delete meals
 POST http://localhost:5000/deletemeal/1
@@ -102,4 +103,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hb
     "oldPassword": "password",
     "newPassword": "password1",
     "confirmNewPassword": "password1"
+}
+
+### Update Profile
+PUT http://localhost:5000/updateprofile/1
+content-type: application/json
+
+{
+    "name": "John hebat",
+    "age" : "22",
+    "gender":"L"
 }
