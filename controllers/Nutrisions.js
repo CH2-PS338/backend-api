@@ -2,11 +2,7 @@ import Nutrisions from '../models/NutrisionsModel.js';
 
 export const getNutrisions = async (req, res) => {
     try {
-        const nutrisions = await Nutrisions.findAll(
-            {
-                attributes: ['nutrisionId', 'name', 'description', 'createdAt', 'updatedAt']
-            }
-        );
+        const nutrisions = await Nutrisions.findAll();
         res.json({
             error: false,
             message: 'Nutrisions fetched successfully',
@@ -19,11 +15,16 @@ export const getNutrisions = async (req, res) => {
 
 
 export const addNutrisions = async (req, res) => {
-    const { name, description } = req.body;
+    const { nutrisionId, name, calories, carbs, proteins, fats, minerals } = req.body;
     try {
         const createdNutrisions = await Nutrisions.create({
+            nutrisionId: nutrisionId,
             name: name,
-            description: description
+            calories: calories,
+            carbs: carbs,
+            proteins: proteins,
+            fats: fats,
+            minerals: minerals
         })
         res.json({
             error: false,

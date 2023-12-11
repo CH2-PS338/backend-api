@@ -26,13 +26,17 @@ export const addFactHealths = async (req, res) => {
 };
 
 export const getRandomFact = async (req, res) => {
-    const factId = Math.floor(Math.random() * 10) + 1;
+
+    const calculateFact = await FactHealths.count();
+
+    const factId = Math.floor(Math.random() * calculateFact) + 1;
 
     try {
         const randomFact = await FactHealths.findAll({
             where: {
                 factId: factId
-            }
+            },
+            attributes: ['factId', 'fact', 'source'],
         });
         return res.json({
             error: false,
