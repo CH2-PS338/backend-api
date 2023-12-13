@@ -30,10 +30,10 @@ router.post('/nutrisions', addNutrisions);
 
 
 //meals
-router.get('/meals/:id', verifyToken, getMealsById);
-router.post('/addmeal/:id', addMeal);
+router.get('/meals/:id', getMealsById);
+router.post('/addmeal/:id', verifyToken, addMeal);
 router.post('/deletemeal/:id', verifyToken, deleteMealsById);
-router.get('/dashboard/:id', dashboardAPi);
+router.get('/dashboard/:id', verifyToken, dashboardAPi);
 
 //fact healths
 router.get('/facthealths', getRandomFact);

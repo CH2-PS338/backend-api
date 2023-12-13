@@ -27,6 +27,7 @@ const Nutrisions = db.define('nutrisions', {
         type: DataTypes.INTEGER,
     },
 }, {
+    timestamps: true,
     freezeTableName: true,
 });
 

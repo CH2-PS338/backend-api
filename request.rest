@@ -48,11 +48,11 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/addmeal/1
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJKb2huIHRpdGl0IiwiZW1haWwiOiJqb2hudGl0aXRAZ21haWwuY29tIiwiaWF0IjoxNzAxOTExOTkwLCJleHAiOjE3MDE5OTgzOTB9.peg0qAZ7umjQ3m_uoyrDn29m0qZfdI_YwFpKZ_6MOHQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJKb2huIHJvY2tlciIsImVtYWlsIjoiam9obnJvY2tlckBnbWFpbC5jb20iLCJpYXQiOjE3MDI0ODk5OTYsImV4cCI6MTcwMjU3NjM5Nn0.qWr0NIBs7LP5o4GmrM7LRaeOYxBv9v6ihcxFewSosm8
 Content-Type: application/json
 
 {
-    "meals_name": ["banana","nasi_putih"]
+    "meals_name": ["kacang"]
 }
 
 
@@ -91,7 +91,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsIm5hb
 
 ### Meals!
 GET http://localhost:5000/meals/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJKb2huIHRpdGl0IiwiZW1haWwiOiJqb2hudGl0aXRAZ21haWwuY29tIiwiaWF0IjoxNzAxOTExOTkwLCJleHAiOjE3MDE5OTgzOTB9.peg0qAZ7umjQ3m_uoyrDn29m0qZfdI_YwFpKZ_6MOHQ
 
 
 ### Change Password

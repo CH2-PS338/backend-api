@@ -17,7 +17,8 @@ export const getMealsById = async (req, res) => {
             where: {
                 userId: userId,
             },
-            attributes: ['mealId', 'meals_name'],
+            attributes: ['mealId', 'meals_name', 'createdAt'],
+            order: [['createdAt', 'ASC']],
         });
 
         return res.json({

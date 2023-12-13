@@ -42,6 +42,7 @@ const Users = db.define('users', {
         type: DataTypes.TEXT,
     },
 }, {
+    timestamps: true,
     freezeTableName: true,
 });
 

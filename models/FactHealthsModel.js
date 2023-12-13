@@ -16,6 +16,7 @@ const FactHealths = db.define('fact_healths', {
         type: DataTypes.STRING,
     },
 }, {
+    timestamps: true,
     freezeTableName: true,
 });
 
