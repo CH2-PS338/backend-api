@@ -1,4 +1,5 @@
 import Users from "../models/UserModels.js";
+import Meals from "../models/MealsModel.js";
 import bcrypt from "bcrypt";
 import Jwt from "jsonwebtoken";
 
@@ -156,35 +157,52 @@ export const updateProfile = async (req, res) => {
     const { name, age, gender } = req.body;
     const { id: userId } = req.params;
 
-    try {
-        const updateProfile = Users.update({
-            name: name,
-            age: age,
-            gender: gender,
+    const nutritionProfiles = {
+        L: {
+            '15-18': { calories: 2650, proteins: 75, carbs: 400, fats: 85, minerals: 2300 },
+            '19-29': { calories: 2650, proteins: 65, carbs: 430, fats: 75, minerals: 2500 },
+            '30-49': { calories: 2550, proteins: 65, carbs: 415, fats: 70, minerals: 2500 },
+            '50-64': { calories: 2150, proteins: 65, carbs: 340, fats: 60, minerals: 2500 },
         },
-            {
-                where: { userId: userId }
-            }
-        )
+        P: {
+            '15-18': { calories: 2100, proteins: 65, carbs: 300, fats: 70, minerals: 2150 },
+            '19-29': { calories: 2250, proteins: 60, carbs: 360, fats: 65, minerals: 2350 },
+            '30-49': { calories: 2150, proteins: 60, carbs: 340, fats: 60, minerals: 2350 },
+            '50-64': { calories: 1800, proteins: 60, carbs: 280, fats: 50, minerals: 2350 },
+        }
+    };
+
+    const getAgeRange = (age) => {
+        if (age >= 15 && age <= 18) return '15-18';
+        if (age >= 19 && age <= 29) return '19-29';
+        if (age >= 30 && age <= 49) return '30-49';
+        if (age >= 50 && age <= 64) return '50-64';
+        return null;
+    };
+
+    try {
+        await Users.update({ name, age, gender }, { where: { userId } });
+
+        const ageRange = getAgeRange(age);
+        if (ageRange && nutritionProfiles[gender] && nutritionProfiles[gender][ageRange]) {
+            await Users.update(nutritionProfiles[gender][ageRange], { where: { userId } });
+        }
 
         return res.json({
             error: false,
             message: 'Profile has been updated',
-            data: {
-                name: name,
-                age: age,
-                gender: gender
-            }
+            data: { name, age, gender }
         });
 
     } catch (error) {
-        res.status(400).json({
+        return res.status(400).json({
             error: true,
             message: 'Something went wrong'
         });
     }
+};
 
-}
+
 
 export const changePassword = async (req, res) => {
     const { id: userId } = req.params;
@@ -228,6 +246,65 @@ export const changePassword = async (req, res) => {
                 userId: userId,
             }
         });
+
+    } catch (error) {
+        return res.status(400).json({
+            error: true,
+            message: 'Something went wrong'
+        });
+    }
+};
+
+export const checkDailyCalories = async (req, res) => {
+    const { id: userId } = req.params;
+
+    try {
+        const getDailyCalories = await Users.findOne({
+            where: { userId: userId },
+        });
+
+        const getMealsDay = await Meals.findAll({
+            where: {
+                userId: userId,
+            },
+        });
+
+        const date = new Date();
+        const today = date.getDate();
+
+        const getMealsThisDay = getMealsDay.filter((meal) => {
+            const mealDate = new Date(meal.createdAt).getDate();
+            return mealDate === today;
+        });
+
+        const calculate = getMealsThisDay.reduce((acc, curr) => {
+            return {
+                calories: acc.calories + curr.calories,
+                carbs: acc.carbs + curr.carbs,
+                proteins: acc.proteins + curr.proteins,
+                fats: acc.fats + curr.fats,
+                minerals: acc.minerals + curr.minerals,
+            };
+        }, {
+            calories: 0,
+            carbs: 0,
+            proteins: 0,
+            fats: 0,
+            minerals: 0,
+        });
+
+        const remainingCalories = {
+            calories: getDailyCalories.calories - calculate.calories,
+            carbs: getDailyCalories.carbs - calculate.carbs,
+            proteins: getDailyCalories.proteins - calculate.proteins,
+            fats: getDailyCalories.fats - calculate.fats,
+            minerals: getDailyCalories.minerals - calculate.minerals,
+        };
+
+        return res.json({
+            data: remainingCalories,
+        });
+
 
     } catch (error) {
         return res.status(400).json({

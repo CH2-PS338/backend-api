@@ -14,19 +14,19 @@ const Meals = db.define('meals', {
         type: DataTypes.STRING,
     },
     calories: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
     },
     carbs: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
     },
     proteins: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
     },
     fats: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
     },
     minerals: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
     },
     userId: {
         type: DataTypes.INTEGER,

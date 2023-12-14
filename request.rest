@@ -35,24 +35,23 @@ POST http://localhost:5000/nutrisions
 Content-Type: application/json
 
 {
-    "nutrisionId": "nasi_putih",
-    "name": "Nasi Putih",
-    "calories": "112",
-    "carbs": "222",
-    "proteins": "12",
-    "carbs": "511",
-    "fats": "23",
-    "minerals": "12"
+    "nutrisionId": "pisang",
+    "name": "Pisang",
+    "calories": "108",
+    "carbs": "24",
+    "proteins": "1",
+    "fats": "1",
+    "minerals": "0"
 }
 
 
 ###
 POST http://localhost:5000/addmeal/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJKb2huIHJvY2tlciIsImVtYWlsIjoiam9obnJvY2tlckBnbWFpbC5jb20iLCJpYXQiOjE3MDI0ODk5OTYsImV4cCI6MTcwMjU3NjM5Nn0.qWr0NIBs7LP5o4GmrM7LRaeOYxBv9v6ihcxFewSosm8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJKb2huIHJvY2tlciIsImVtYWlsIjoiam9obnJvY2tlckBnbWFpbC5jb20iLCJpYXQiOjE3MDI1ODQ5NTIsImV4cCI6MTcwMjY3MTM1Mn0.PC4l4jk-eDgLUv3-5QxXXs8--YTlJb1ZFeI5jUxnNog
 Content-Type: application/json
 
 {
-    "meals_name": ["kacang"]
+    "meals_name": ["nasi-putih","telur-putih","pisang"]
 }
 
 
@@ -84,13 +83,9 @@ Content-Type: application/json
     "email": "johnjay@gmail.com"
 }
 
-###
-GET http://localhost:5000/dashboard/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsIm5hbWUiOiJKb2huIHJvY2tlciIsImVtYWlsIjoiam9obnJvY2tlckBnbWFpbC5jb20iLCJpYXQiOjE3MDIwMjI5MjcsImV4cCI6MTcwMjEwOTMyN30.u3BGoASj8kB1LG1y4I71JXWK259z0nYAc9haRy1phKc
-
-
 ### Meals!
 GET http://localhost:5000/meals/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJKb2huIHJvY2tlciIsImVtYWlsIjoiam9obnJvY2tlckBnbWFpbC5jb20iLCJpYXQiOjE3MDI0OTMyMDgsImV4cCI6MTcwMjU3OTYwOH0.HqPxwn3bn_jCecwIvggrNlikNPmXp4WzBtVcv7hybXo
 
 
 ### Change Password
@@ -107,9 +102,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hb
 ### Update Profile
 PUT http://localhost:5000/updateprofile/1
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJKb2huIHJvY2tlciIsImVtYWlsIjoiam9obnJvY2tlckBnbWFpbC5jb20iLCJpYXQiOjE3MDI1ODQ5NTIsImV4cCI6MTcwMjY3MTM1Mn0.PC4l4jk-eDgLUv3-5QxXXs8--YTlJb1ZFeI5jUxnNog
 
 {
     "name": "John hebat",
     "age" : "22",
     "gender":"L"
 }
+
+
+### checkdailycalories
+GET http://localhost:5000/checkdailycalories/1
+
+###
+GET http://localhost:5000/dashboard/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJKb2huIHJvY2tlciIsImVtYWlsIjoiam9obnJvY2tlckBnbWFpbC5jb20iLCJpYXQiOjE3MDI1ODQ5NTIsImV4cCI6MTcwMjY3MTM1Mn0.PC4l4jk-eDgLUv3-5QxXXs8--YTlJb1ZFeI5jUxnNog

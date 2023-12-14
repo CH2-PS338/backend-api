@@ -38,6 +38,21 @@ const Users = db.define('users', {
     profilePic: {
         type: DataTypes.TEXT,
     },
+    calories: {
+        type: DataTypes.FLOAT,
+    },
+    carbs: {
+        type: DataTypes.FLOAT,
+    },
+    proteins: {
+        type: DataTypes.FLOAT,
+    },
+    fats: {
+        type: DataTypes.FLOAT,
+    },
+    minerals: {
+        type: DataTypes.FLOAT,
+    },
     refreshToken: {
         type: DataTypes.TEXT,
     },

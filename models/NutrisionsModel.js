@@ -12,19 +12,19 @@ const Nutrisions = db.define('nutrisions', {
         type: DataTypes.STRING,
     },
     calories: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
     },
     carbs: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
     },
     proteins: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
     },
     fats: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
     },
     minerals: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
     },
 }, {
     timestamps: true,

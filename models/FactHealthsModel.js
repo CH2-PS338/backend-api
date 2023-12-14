@@ -10,7 +10,7 @@ const FactHealths = db.define('fact_healths', {
         autoIncrement: true,
     },
     fact: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
     },
     source: {
         type: DataTypes.STRING,
