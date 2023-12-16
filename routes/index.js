@@ -3,14 +3,14 @@ import { Login, Logout, Register, changePassword, checkDailyCalories, forgotPass
 import { getNutrisions, addNutrisions } from "../controllers/Nutrisions.js";
 import { getMealsById, addMeal, deleteMealsById, dashboardAPi } from "../controllers/Meals.js";
 import { getRandomFact, addFactHealths } from "../controllers/FactHealths.js";
-import { verifyToken } from "../middleware/VerifyToken.js";
+import { verifyToken } from "../middlewares/VerifyToken.js";
 import { refreshToken } from "../controllers/RefreshToken.js";
 import { uploadImage, multerImage } from "../controllers/UploadImage.js";
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.send('Bangkit capstone TrackMeals!');
+    res.send('Bangkit API capstone TrackMeals!');
 });
 
 
@@ -28,10 +28,9 @@ router.put('/uploadprofile/:id', verifyToken, multerImage.single('file'), upload
 router.get('/nutrisions', getNutrisions);
 router.post('/nutrisions', addNutrisions);
 
-//daily calories
+//daily Nutrisions
 router.get('/checkdailycalories/:id', checkDailyCalories);
 router.get('/dashboard/:id', verifyToken, dashboardAPi);
-
 
 //meals
 router.get('/meals/:id', getMealsById);
