@@ -1,10 +1,10 @@
 import express from 'express';
-import db from './config/Database.js';
+import db from './configs/Database.js';
 import router from './routes/index.js';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import Migrate from './config/Migrate.js';
+import Migrate from './configs/Migrate.js';
 
 dotenv.config();
 const app = express();
