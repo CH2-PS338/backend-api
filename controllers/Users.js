@@ -45,7 +45,11 @@ export const Register = async (req, res) => {
             }
         });
     } catch (error) {
-        console.log(error);
+        console.log("Register error " + error);
+        res.status(400).json({
+            error: true,
+            message: 'Something went wrong'
+        });
     }
 }
 
@@ -81,9 +85,10 @@ export const Login = async (req, res) => {
             accessToken: accessToken
         });
     } catch (error) {
+        console.log("Login error :" + error)
         res.status(400).json({
             error: true,
-            message: 'Email is not found'
+            message: 'Email is not registered, please register first!'
         });
     }
 };
@@ -96,22 +101,30 @@ export const Logout = async (req, res) => {
             message: 'User not authenticated!'
         });
     }
-    const user = await Users.findAll({ where: { refreshToken: refreshToken } });
-    if (!user) {
-        return res.status(204).json({
+    try {
+        const user = await Users.findAll({ where: { refreshToken: refreshToken } });
+        if (!user) {
+            return res.status(204).json({
+                error: true,
+                message: 'User not authenticated!'
+            });
+        }
+        const userId = user[0].userId;
+        await Users.update({ refreshToken: null }, {
+            where: { userId: userId }
+        });
+        res.clearCookie('refreshToken');
+        return res.status(200).json({
+            error: false,
+            message: 'Logout success!'
+        });
+    } catch (error) {
+        console.log("Logout error :" + error)
+        res.status(400).json({
             error: true,
-            message: 'User not authenticated!'
+            message: 'Something went wrong'
         });
     }
-    const userId = user[0].userId;
-    await Users.update({ refreshToken: null }, {
-        where: { userId: userId }
-    });
-    res.clearCookie('refreshToken');
-    return res.status(200).json({
-        error: false,
-        message: 'Logout success!'
-    });
 };
 
 
@@ -143,6 +156,7 @@ export const forgotPassword = async (req, res) => {
             }
         });
     } catch (error) {
+        console.log("Forgot password error :" + error)
         return res.status(400).json({
             error: true,
             message: 'Something went wrong'
@@ -195,6 +209,7 @@ export const updateProfile = async (req, res) => {
         });
 
     } catch (error) {
+        console.log("Update profile error :" + error);
         return res.status(400).json({
             error: true,
             message: 'Something went wrong'
@@ -248,6 +263,7 @@ export const changePassword = async (req, res) => {
         });
 
     } catch (error) {
+        console.log("Change password error :" + error);
         return res.status(400).json({
             error: true,
             message: 'Something went wrong'
@@ -307,6 +323,7 @@ export const checkDailyCalories = async (req, res) => {
 
 
     } catch (error) {
+        console.log("Check daily calories error :" + error);
         return res.status(400).json({
             error: true,
             message: 'Something went wrong'

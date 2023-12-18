@@ -1,6 +1,6 @@
 # Node.js
 node_modules/
-config/
+configs/
 
 # Logs
 logs
@@ -25,6 +25,9 @@ dist/
 
 # dotenv environment variables file
 .env
+
+# Exclude request.rest file
+request.rest
 
 # OS generated files
 .DS_Store

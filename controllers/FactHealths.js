@@ -6,7 +6,7 @@ export const addFactHealths = async (req, res) => {
     if (!fact || !source) {
         return res.status(400).json({
             error: true,
-            message: "Please provide all the required details",
+            message: "Please provide all the required details"
         });
     }
 
@@ -18,10 +18,14 @@ export const addFactHealths = async (req, res) => {
         return res.json({
             error: false,
             message: "Fact added successfully",
-            data: newFact,
+            data: newFact
         });
     } catch (error) {
         console.log(error);
+        return res.status(500).json({
+            error: true,
+            message: "Something went wrong"
+        });
     }
 };
 
@@ -46,5 +50,9 @@ export const getRandomFact = async (req, res) => {
         );
     } catch (error) {
         console.log(error);
+        return res.status(500).json({
+            error: true,
+            message: "Something went wrong"
+        });
     }
 };

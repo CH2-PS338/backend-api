@@ -29,6 +29,8 @@ DELETE http://localhost:5000/logout
 ### Nutrisions!
 GET http://localhost:5000/nutrisions
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsIm5hbWUiOiJKb2huIGRvc2UiLCJlbWFpbCI6ImpvaG5kb3NlQGdtYWlsLmNvbSIsImlhdCI6MTcwMTcxNjAyMCwiZXhwIjoxNzAxODAyNDIwfQ.VJA8fcffDwxqVI2WfDCjTk_2lcMpF2_O5fUZP3WVJdQ
+### delete nutrisions
+DELETE http://localhost:5000/nutrisions/pisang
 
 ###
 POST http://localhost:5000/nutrisions

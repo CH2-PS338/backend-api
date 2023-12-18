@@ -39,5 +39,9 @@ export const refreshToken = async (req, res) => {
 
     } catch (error) {
         console.log(error);
+        return res.json({
+            error: true,
+            message: 'Something went wrong'
+        });
     }
 };

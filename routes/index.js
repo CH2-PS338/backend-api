@@ -1,6 +1,6 @@
 import express from "express";
 import { Login, Logout, Register, changePassword, checkDailyCalories, forgotPassword, updateProfile } from "../controllers/Users.js";
-import { getNutrisions, addNutrisions } from "../controllers/Nutrisions.js";
+import { getNutrisions, addNutrisions, deleteNutrisions } from "../controllers/Nutrisions.js";
 import { getMealsById, addMeal, deleteMealsById, dashboardAPi } from "../controllers/Meals.js";
 import { getRandomFact, addFactHealths } from "../controllers/FactHealths.js";
 import { verifyToken } from "../middlewares/VerifyToken.js";
@@ -27,6 +27,7 @@ router.put('/uploadprofile/:id', verifyToken, multerImage.single('file'), upload
 // Nutrisions
 router.get('/nutrisions', getNutrisions);
 router.post('/nutrisions', addNutrisions);
+router.delete('/nutrisions/:id', deleteNutrisions);
 
 //daily Nutrisions
 router.get('/checkdailycalories/:id', checkDailyCalories);

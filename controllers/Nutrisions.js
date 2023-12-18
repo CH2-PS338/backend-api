@@ -10,6 +10,10 @@ export const getNutrisions = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
+        return res.json({
+            error: true,
+            message: 'Something went wrong'
+        });
     }
 }
 
@@ -33,5 +37,31 @@ export const addNutrisions = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
+        return res.json({
+            error: true,
+            message: 'Something went wrong'
+        });
+    }
+}
+
+export const deleteNutrisions = async (req, res) => {
+    const { id: nutrisionId } = req.params;
+    try {
+        const deletedNutrisions = await Nutrisions.destroy({
+            where: {
+                nutrisionId: nutrisionId
+            }
+        })
+        res.json({
+            error: false,
+            message: 'Nutrisions deleted successfully',
+            data: deletedNutrisions
+        });
+    } catch (error) {
+        console.log(error);
+        return res.json({
+            error: true,
+            message: 'Something went wrong'
+        });
     }
 }

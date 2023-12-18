@@ -27,9 +27,10 @@ export const getMealsById = async (req, res) => {
             data: userMeals,
         });
     } catch (error) {
+        console.error("Fetch Meals Error by id: ", error);
         return res.status(500).json({
-            error: 'Internal Server Error',
-            message: error.message,
+            error: true,
+            message: 'Internal Server Error',
         });
     }
 };
@@ -117,7 +118,7 @@ export const addMeal = async (req, res) => {
             }
         });
     } catch (error) {
-        console.error(error);
+        console.log("Add Meals Error by id: ", error);
         res.status(500).json({
             error: true,
             message: 'Error adding meal',
@@ -165,7 +166,7 @@ export const deleteMealsById = async (req, res) => {
             }
         });
     } catch (error) {
-        console.error(error);
+        console.log("Delete Meals Error by id: ", error);
         res.status(500).json({
             error: true,
             message: 'Internal Server Error',
@@ -215,6 +216,7 @@ export const dashboardAPi = async (req, res) => {
             }
         });
     } catch (error) {
+        console.log("Fetch error API Dashboard : " + error)
         res.status(500).json({
             error: true,
             message: 'Internal Server Error',
