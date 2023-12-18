@@ -1,5 +1,5 @@
 import express from "express";
-import { Login, Logout, Register, changePassword, checkDailyCalories, forgotPassword, updateProfile } from "../controllers/Users.js";
+import { Login, Logout, Register, changePassword, checkDailyCalories, forgotPassword, getUserById, updateProfile } from "../controllers/Users.js";
 import { getNutrisions, addNutrisions, deleteNutrisions } from "../controllers/Nutrisions.js";
 import { getMealsById, addMeal, deleteMealsById, dashboardAPi } from "../controllers/Meals.js";
 import { getRandomFact, addFactHealths } from "../controllers/FactHealths.js";
@@ -21,6 +21,7 @@ router.delete('/logout', Logout);
 router.post('/forgotpassword', forgotPassword);
 router.post('/changepassword/:id', verifyToken, changePassword);
 router.put('/updateprofile/:id', verifyToken, updateProfile)
+router.get('/profile/:id', verifyToken, getUserById);
 //bug image get image that logged user
 router.put('/uploadprofile/:id', verifyToken, multerImage.single('file'), uploadImage);
 
@@ -30,7 +31,7 @@ router.post('/nutrisions', addNutrisions);
 router.delete('/nutrisions/:id', deleteNutrisions);
 
 //daily Nutrisions
-router.get('/checkdailycalories/:id', checkDailyCalories);
+router.get('/checkdailycalories/:id', verifyToken, checkDailyCalories);
 router.get('/dashboard/:id', verifyToken, dashboardAPi);
 
 //meals

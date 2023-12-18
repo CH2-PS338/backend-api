@@ -330,3 +330,28 @@ export const checkDailyCalories = async (req, res) => {
         });
     }
 };
+
+export const getUserById = async (req, res) => {
+    const { id: userId } = req.params;
+
+    try {
+        const user = await Users.findOne({
+            where: { userId: userId },
+            attributes: {
+                exclude: ['password', 'refreshToken']
+            }
+        });
+
+        return res.json({
+            error: false,
+            data: user
+        });
+
+    } catch (error) {
+        console.log("Get user by id error :" + error);
+        return res.status(400).json({
+            error: true,
+            message: 'Something went wrong'
+        });
+    }
+}
