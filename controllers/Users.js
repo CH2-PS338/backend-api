@@ -72,7 +72,7 @@ export const Login = async (req, res) => {
             expiresIn: '30s'
         });
         const refreshToken = Jwt.sign({ userId, name, email }, process.env.REFRESH_TOKEN_SECRET, {
-            expiresIn: '1day'
+            expiresIn: '3650d' // Expires in 3650 days (10 years)
         });
         await Users.update({ refreshToken: refreshToken }, { where: { userId: userId } });
         res.cookie('refreshToken', refreshToken, {
