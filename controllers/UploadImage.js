@@ -4,7 +4,7 @@ import Users from "../models/UserModels.js";
 
 const storage = new Storage({
     projectId: "capstone-trackmeals-405419",
-    keyFilename: "./config/key.json",
+    keyFilename: "./configs/key.json",
 });
 
 const bucket = storage.bucket("profile-image-user-trackmeals");
