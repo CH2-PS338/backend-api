@@ -69,7 +69,7 @@ export const Login = async (req, res) => {
         const name = user[0].name;
         const email = user[0].email;
         const accessToken = Jwt.sign({ userId, name, email }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '30s'
+            expiresIn: '365d'
         });
         const refreshToken = Jwt.sign({ userId, name, email }, process.env.REFRESH_TOKEN_SECRET, {
             expiresIn: '3650d' // Expires in 3650 days (10 years)
@@ -82,7 +82,12 @@ export const Login = async (req, res) => {
         });
         res.json({
             error: false,
-            accessToken: accessToken
+            data: {
+                id: userId,
+                name: name,
+                email: email,
+            },
+            message: 'Login success!',
         });
     } catch (error) {
         console.log("Login error :" + error)

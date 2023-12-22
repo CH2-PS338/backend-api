@@ -19,11 +19,11 @@ router.post('/login', Login);
 router.get('/token', refreshToken);
 router.delete('/logout', Logout);
 router.post('/forgotpassword', forgotPassword);
-router.post('/changepassword/:id', verifyToken, changePassword);
-router.put('/updateprofile/:id', verifyToken, updateProfile)
-router.get('/profile/:id', verifyToken, getUserById);
+router.post('/changepassword/:id', changePassword);
+router.put('/updateprofile/:id', updateProfile)
+router.get('/profile/:id', getUserById);
 //bug image get image that logged user
-router.put('/uploadprofile/:id', verifyToken, multerImage.single('file'), uploadImage);
+router.put('/uploadprofile/:id', multerImage.single('file'), uploadImage);
 
 // Nutrisions
 router.get('/nutrisions', getNutrisions);
@@ -31,13 +31,13 @@ router.post('/nutrisions', addNutrisions);
 router.delete('/nutrisions/:id', deleteNutrisions);
 
 //daily Nutrisions
-router.get('/checkdailycalories/:id', verifyToken, checkDailyCalories);
-router.get('/dashboard/:id', verifyToken, dashboardAPi);
+router.get('/checkdailycalories/:id', checkDailyCalories);
+router.get('/dashboard/:id', dashboardAPi);
 
 //meals
 router.get('/meals/:id', getMealsById);
-router.post('/addmeal/:id', verifyToken, addMeal);
-router.post('/deletemeal/:id', verifyToken, deleteMealsById);
+router.post('/addmeal/:id', addMeal);
+router.post('/deletemeal/:id', deleteMealsById);
 
 //fact healths
 router.get('/facthealths', getRandomFact);
